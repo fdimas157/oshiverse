@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import { CircleUserRound, Moon, Settings, Languages } from "lucide-react";
+import { CircleUserRound } from "lucide-react";
 import { useState } from "react";
+import PopUpProfile from "./PopUpProfile";
 
 export default function Header({ backgroundHeader, setBackgroundHeader }) {
   const [profilePopUp, setprofilePopUp] = useState();
@@ -94,41 +95,10 @@ export default function Header({ backgroundHeader, setBackgroundHeader }) {
         </div>
       </div>
       {profilePopUp && (
-        <div className="absolute top-14 right-6 z-10 h-80 w-56 border-2 border-black shadow-2xl bg-white rounded-xl flex flex-col justify-center items-center font-abel gap-2">
-          <div>DIMAS FIRMANSYAH</div>
-          <CircleUserRound size={72} className="text-black" />
-          <div className="text-xs">fdimas157@gmail.com</div>
-          <div className="flex gap-2 text-white">
-            <Moon
-              size={28}
-              className="bg-red-600 p-1 rounded-2xl cursor-pointer"
-            />
-            <Settings
-              size={28}
-              className="bg-red-600 p-1 rounded-2xl cursor-pointer"
-            />
-            <Languages
-              size={28}
-              className="bg-red-600 p-1 rounded-2xl cursor-pointer"
-            />
-          </div>
-          <Link
-            to={"/jkt48/profile"}
-            className="flex justify-center items-center rounded-lg bg-red-600 text-white w-40 h-8 cursor-pointer my-2 border-2 border-black"
-            onClick={() => {
-              setprofilePopUp();
-              setBackgroundHeader(false);
-            }}
-          >
-            Ceck Your Profile
-          </Link>
-          <Link
-            to={"/jkt48/login"}
-            className="flex justify-center items-center cursor-pointer"
-          >
-            Logout
-          </Link>
-        </div>
+        <PopUpProfile
+          profilePopUp={profilePopUp}
+          setprofilePopUp={setprofilePopUp}
+        />
       )}
     </nav>
   );

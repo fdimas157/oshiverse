@@ -1,10 +1,12 @@
-import { useState } from "react";
-import Header from "./components/Header";
+import { createContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 
+export const AuthContext = createContext();
+
 export default function App() {
   // const [backgroundHeader, setBackgroundHeader] = useState(true);
+  const [cart, setCart] = useState([{ id: 1, nameProduct: "Dimas" }]);
 
   return (
     <>
@@ -12,7 +14,7 @@ export default function App() {
         backgroundHeader={backgroundHeader}
         setBackgroundHeader={setBackgroundHeader}
       /> */}
-      <Outlet />
+      <Outlet cart={cart} setCart={setCart} />
       <Footer />
     </>
   );

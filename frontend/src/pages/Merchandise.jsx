@@ -1,10 +1,14 @@
 import { useState } from "react";
-import PopUpProduct from "../components/PopUpMerchandise";
+import PopUpProduct from "../components/PopUpProduct";
 import HeaderShop from "../components/HeaderShop";
+import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export default function Merchandise() {
+// eslint-disable-next-line react/prop-types
+export default function Merchandise({ cart, setCart }) {
   const [popUpProduct, setPopUpProduct] = useState();
   const [popUpDataProduct, setPopUpDataProduct] = useState({});
+  const [totalCart, setTotalCart] = useState(0);
 
   const tShirt = [
     {
@@ -71,8 +75,23 @@ export default function Merchandise() {
 
   return (
     <>
-      <HeaderShop />
+      <HeaderShop totalCart={totalCart} cart={cart} />
       <main className="flex flex-col p-2">
+        <div className="w-full h-12 flex flex-row items-center gap-2 p-4">
+          <Link
+            to="/jkt48/"
+            className="border-b-2 border-white hover:border-black"
+          >
+            HOME
+          </Link>
+          <ChevronRight />
+          <Link
+            to="/jkt48/merchandise"
+            className="border-b-2 border-white hover:border-black"
+          >
+            MERCHANDISE
+          </Link>
+        </div>
         <div>
           <img src="/src/assets/merchandise/bg.png" alt="" />
         </div>
@@ -108,6 +127,10 @@ export default function Merchandise() {
             popUpProduct={popUpProduct}
             setPopUpProduct={setPopUpProduct}
             popUpDataProduct={popUpDataProduct}
+            setTotalCart={setTotalCart}
+            totalCart={totalCart}
+            cart={cart}
+            setCart={setCart}
           />
         )}
       </main>

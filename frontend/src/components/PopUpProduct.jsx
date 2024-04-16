@@ -5,6 +5,9 @@ export default function PopUpProduct({
   popUpProduct,
   popUpDataProduct,
   setPopUpProduct,
+  setTotalCart,
+  cart,
+  setCart
 }) {
   const [order, setOrder] = useState(1);
   const [size, setSize] = useState("L");
@@ -97,13 +100,21 @@ export default function PopUpProduct({
               </button>
               <button
                 className="bg-red-600 w-10/12 h-12 rounded-lg"
-                onClick={() => setPopUpProduct()}
+                onClick={() => {
+                  setCart([...cart, { ...popUpDataProduct, size, order }]);
+                  setTotalCart(cart.length + 1);
+                  setPopUpProduct();
+                  console.log(cart);
+                }}
               >
                 {order} pcs ukuran {size}
               </button>
               <button
                 className="w-1/12 bg-red-600 rounded-lg"
-                onClick={() => setOrder(order + 1)}
+                onClick={() => {
+                  setOrder(order + 1);
+                  console.log(order);
+                }}
               >
                 +
               </button>

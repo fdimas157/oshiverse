@@ -4,7 +4,7 @@ import { CircleUserRound, Moon, Settings, Languages } from "lucide-react";
 import { FaBell, FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
 
-export default function HeaderShop() {
+export default function HeaderShop({ totalCart }) {
   const [profilePopUp, setprofilePopUp] = useState();
 
   return (
@@ -23,7 +23,10 @@ export default function HeaderShop() {
         <span className="cursor-pointer font-abel">JKT48</span>
       </Link>
       <div className="flex gap-8 justify-between items-center w-8/12 h-10">
-        <form action="" className="font-abel w-full text-black text-xs">
+        <form
+          action=""
+          className="font-outfit font-normal w-full text-black text-xs"
+        >
           <input
             type="text"
             name=""
@@ -39,7 +42,10 @@ export default function HeaderShop() {
           to="/jkt48/merchandise/cart"
           className={"cursor-pointer"}
         >
-          <FaShoppingCart size={24} />
+          <FaBell size={24} />
+          <div className="text-xs font-outfit bg-red-600 absolute top-3 right-52 w-4 h-4 flex justify-center items-center rounded-full">
+            {totalCart}
+          </div>
         </Link>
         <Link
           onClick={() => {
@@ -48,7 +54,7 @@ export default function HeaderShop() {
           to="/jkt48/merchandise/cart"
           className={"cursor-pointer"}
         >
-          <FaBell size={24} />
+          <FaShoppingCart size={24} />
         </Link>
       </div>
       <div className="flex gap-4 w-52 justify-center items-center font-abel">

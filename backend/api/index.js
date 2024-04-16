@@ -16,3 +16,8 @@ app.get("/api/v1/users", async (_req, res) => {
   const result = await pool.query("SELECT * FROM users");
   res.json(result.rows);
 });
+
+app.use("/api/v1/product", async (_req, res) => {
+  const result = await pool.query("SELECT * FROM products");
+  res.json(result.rows);
+});
