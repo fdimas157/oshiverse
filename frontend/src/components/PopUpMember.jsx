@@ -2,7 +2,11 @@
 import { XCircle } from "lucide-react";
 import { FaInstagram, FaTiktok, FaXTwitter } from "react-icons/fa6";
 
-export default function PopUpMember({popUpMember, popUpDataMember, setPopUpMember}) {
+export default function PopUpMember({
+  popUpMember,
+  popUpDataMember,
+  setPopUpMember,
+}) {
   return (
     <>
       <div className="bg-black bg-opacity-80 w-full h-screen fixed top-0 p-0 m-0 flex justify-center items-center">
@@ -17,7 +21,7 @@ export default function PopUpMember({popUpMember, popUpDataMember, setPopUpMembe
           />
           <div className="w-4/12">
             <img
-              src={popUpDataMember.imagePopUp}
+              src={popUpDataMember.img_main}
               alt={popUpDataMember.name}
               className="rounded-lg"
             />
@@ -34,7 +38,7 @@ export default function PopUpMember({popUpMember, popUpDataMember, setPopUpMembe
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-2">Tanggal Lahir</td>
-                  <td>{popUpDataMember.birthDay}</td>
+                  <td>{popUpDataMember.birth}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-2">Golongan Darah</td>
@@ -50,13 +54,19 @@ export default function PopUpMember({popUpMember, popUpDataMember, setPopUpMembe
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-2">Nama Panggilan</td>
-                  <td>{popUpDataMember.nickName}</td>
+                  <td>{popUpDataMember.nick_name}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4 flex flex-row justify-center gap-4 items-center">
-                    <FaXTwitter className="text-3xl" />
-                    <FaInstagram className="text-3xl" />
-                    <FaTiktok className="text-2xl" />
+                    <a href={popUpDataMember.twitter} target="_blank">
+                      <FaXTwitter className="text-3xl" />
+                    </a>
+                    <a href={popUpDataMember.instagram} target="_blank">
+                      <FaInstagram className="text-3xl" />
+                    </a>
+                    <a href={popUpDataMember.twitter} target="_blank">
+                      <FaTiktok className="text-2xl" />
+                    </a>
                   </td>
                   <td>
                     <button className="bg-red-600 text-white w-full h-10 rounded-lg">

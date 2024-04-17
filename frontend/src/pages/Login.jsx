@@ -5,19 +5,9 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  // const user = [
-  //   {
-  //     id: 1,
-  //     name: "Dimas Firmansyah",
-  //     email: "dimas@gmail.com",
-  //     password: "123",
-  //   },
-  // ];
 
   function handleSubmit(e) {
     e.preventDefault();
-    // setIsLoggedIn(true);
     fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/login`, {
       method: "POST",
       headers: {

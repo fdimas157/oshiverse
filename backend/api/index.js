@@ -31,6 +31,18 @@ app.use("/api/v1/product", async (_req, res) => {
   res.json(result.rows);
 });
 
+app.get("/api/v1/get-all-idol-member", async (_req, res) => {
+  const result = await pool.query("SELECT * FROM idol_member");
+  res.json(result.rows);
+});
+
+app.get("/api/v1/get-idol-member/:id", async (req, res) => {
+  const result = await pool.query("SELECT * FROM idol_member WHERE id = $1", [
+    req.params.id,
+  ]);
+  res.json(result.rows[0]);
+});
+
 //login
 app.post("/api/v1/login", async (req, res) => {
   const result = await pool.query("SELECT * FROM users WHERE email = $1", [
