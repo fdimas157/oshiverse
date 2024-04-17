@@ -141,8 +141,8 @@ export default function Register() {
               name="oshi"
               id="oshi"
               className="w-full bg-gray-100/10 border-b border-black font-dosis font-bold text-sm p-4 px-0 pt-0"
-              onChange={
-                (e) => setEditUser({ ...editUser, oshi: e.target.value })
+              onChange={(e) =>
+                setEditUser({ ...editUser, oshi: e.target.value })
               }
             >
               {idolMember.map((m) => (
@@ -158,6 +158,9 @@ export default function Register() {
             <button
               to={"/jkt48"}
               className="bg-red-600 text-white font-outfit font-bold h-12 w-1/2 rounded flex justify-center items-center"
+              onClick={() => {
+                setEditUser({ ...editUser, logged: "true" });
+              }}
             >
               DAFTAR
             </button>

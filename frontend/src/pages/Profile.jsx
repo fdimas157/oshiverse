@@ -1,10 +1,36 @@
 import { XCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 
 export default function Profile() {
   const [openPopUp, setOpenPopUp] = useState();
-  console.log(openPopUp);
+  const [currentUser, setCurrentUser] = useState({});
+  const [currentOshiName, setCurrentOshiName] = useState();
+  // useEffect(() => {
+  //   fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/get-users-by-logged/`)
+  //     .then((response) => response.json())
+  //     .then((currentUser) => setCurrentUser(currentUser));
+  // }, []);
+
+  useEffect(() => {
+    fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/v1/get-user/${localStorage.getItem(
+        "currentUser"
+      )}`
+    )
+      .then((response) => response.json())
+      .then((currentUser) => setCurrentUser(currentUser));
+  }, []);
+
+  useEffect(() => {
+    fetch(
+      `${
+        import.meta.env.VITE_API_BASE_URL
+      }/v1/get-idol-member/${localStorage.getItem("currentOshi")}`
+    )
+      .then((response) => response.json())
+      .then((oshiName) => setCurrentOshiName(oshiName.name));
+  }, []);
 
   const members = [
     {
@@ -151,7 +177,7 @@ export default function Profile() {
                   >
                     Batal
                   </button>
-                  <button 
+                  <button
                     className=" bg-red-600 h-12 rounded-lg text-white w-full"
                     onClick={() => setOpenPopUp(!openPopUp)}
                   >
@@ -188,7 +214,7 @@ export default function Profile() {
               </tr>
               <tr className="border-b-2 border-gray-200">
                 <td className="p-4">Anggota yang paling disukai (Oshimen)</td>
-                <td className="">{user.oshimen.name}</td>
+                <td className="">{currentOshiName}</td>
               </tr>
               <tr className="border-b-2 border-gray-200">
                 <td className="p-4">Jumlah kedatangan thetaer</td>
@@ -230,38 +256,34 @@ export default function Profile() {
               <tbody>
                 <tr className="border-b-2 border-gray-200">
                   <td className="w-2/5 p-4">Email</td>
-                  <td className="">{user.email}</td>
-                </tr>
-                <tr className="border-b-2 border-gray-200">
-                  <td className="p-4">Kata Sandi</td>
-                  <td className="">{user.password}</td>
+                  <td className="">{currentUser.email}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">Nama Lengkap</td>
-                  <td className="">{user.name}</td>
+                  <td className="">{currentUser.name}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">Anggota yang paling disukai (Oshimen)</td>
-                  <td className="">{user.oshimen.name}</td>
+                  <td className="">{currentOshiName}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">Jenis Kelamin</td>
-                  <td>{user.gender}</td>
+                  <td>{currentUser.gender}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">Tanggal Lahir</td>
-                  <td>{user.birth}</td>
+                  <td>{currentUser.birth}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">
                     Nomor Identitas <br /> (KTP, Kartu Pelajar, SIM, atau
                     paspor)
                   </td>
-                  <td>{user.noIdentity}</td>
+                  <td>{currentUser.no_identity}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">No. Handphone</td>
-                  <td>{user.phone}</td>
+                  <td>{currentUser.phone}</td>
                 </tr>
                 <tr>
                   <td className="p-4 text-center" colSpan={2}>

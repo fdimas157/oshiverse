@@ -27,6 +27,49 @@ app.get("/api/v1/users", async (_req, res) => {
   res.json(result.rows);
 });
 
+app.get("/api/v1/get-user/:id", async (req, res) => {
+  const result = await pool.query("SELECT * FROM users WHERE id = $1", [
+    req.params.id,
+  ]);
+  res.json(result.rows[0]);
+});
+
+app.get("/api/v1/get-users-by-logged/", async (req, res) => {
+  const result = await pool.query("SELECT * FROM users WHERE logged = true");
+  res.json(result.rows[0]);
+});
+
+app.put("/api/v1/is-logged-in/:id", async (req, res) => {
+  try {
+    await pool.query("UPDATE users SET logged = true WHERE id = $1", [
+      req.params.id,
+    ]);
+    res.status(200).json({
+      message: "User berhasil login",
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+});
+
+app.get("/api/v1/get-users-by-logged/", async (req, res) => {
+  const result = await pool.query("SELECT * FROM users WHERE logged = true");
+  res.json(result.rows[0]);
+});
+
+app.put("/api/v1/logout/:id", async (req, res) => {
+  try {
+    await pool.query("UPDATE users SET logged = false WHERE id = $1", [
+      req.params.id,
+    ]);
+    res.status(200).json({
+      message: "User berhasil logout",
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+});
+
 app.post("/api/v1/add-user", async (req, res) => {
   try {
     const result = await pool.query(
@@ -103,7 +146,7 @@ app.get("/api/v1/get-all-idol-member", async (_req, res) => {
 });
 
 app.get("/api/v1/get-idol-member/:id", async (req, res) => {
-  const result = await pool.query("SELECT * FROM idol_member WHERE id = $1", [
+  const result = await pool.query("SELECT * FROM idol_members WHERE id = $1", [
     req.params.id,
   ]);
   res.json(result.rows[0]);
@@ -138,7 +181,7 @@ app.post("/api/v1/register", async (req, res) => {
   try {
     const hashedPassword = await argon2.hash(req.body.password);
     const result = await pool.query(
-      "INSERT INTO users (name, email, password, no_identity, birth, phone, gender, oshi, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+      "INSERT INTO users (name, email, password, no_identity, birth, phone, gender, oshi, address, logged) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
       [
         req.body.name,
         req.body.email,
@@ -149,10 +192,17 @@ app.post("/api/v1/register", async (req, res) => {
         req.body.gender,
         req.body.oshi,
         req.body.address,
+        req.body.logged,
       ]
     );
     res.status(200).json({ msg: "Data tersimpan", data: result.rows[0] });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
+});
+
+// CURRENT USER
+app.get("/api/v1/current-user", async (_req, res) => {
+  const result = await pool.query("SELECT * FROM current");
+  res.json(result.rows);
 });

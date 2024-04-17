@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/get-users-by-logged/`)
+      .then((response) => response.json())
+      .then((currentUser) => setCurrentUser(currentUser));
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,7 +35,24 @@ export default function Login() {
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
-        console.log(data.token);
+        localStorage.setItem("currentUser", data.user.id);
+        localStorage.setItem("currentOshi", data.user.oshi);
+        fetch(
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/v1/is-logged-in/${localStorage.getItem("currentUser")}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(currentUser),
+          }
+        )
+          .then((response) => response.json())
+          .then(() => {
+            alert("Anda berhasil login.");
+          });
         navigate("/jkt48");
       });
   }
