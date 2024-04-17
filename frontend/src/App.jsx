@@ -9,10 +9,6 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-      {/* <Header
-        backgroundHeader={backgroundHeader}
-        setBackgroundHeader={setBackgroundHeader}
-      /> */}
       <Outlet />
       <Footer />
     </AuthContext.Provider>

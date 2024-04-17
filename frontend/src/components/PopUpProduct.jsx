@@ -7,7 +7,7 @@ export default function PopUpProduct({
   setPopUpProduct,
   setTotalCart,
   cart,
-  setCart
+  setCart,
 }) {
   const [order, setOrder] = useState(1);
   const [size, setSize] = useState("L");
@@ -26,13 +26,13 @@ export default function PopUpProduct({
           <div className="w-6/12">
             <img
               src={popUpDataProduct.image}
-              alt={popUpDataProduct.nameProduct}
+              alt={popUpDataProduct.name_product}
               className="rounded-lg shadow-xl"
             />
           </div>
           <div className="flex flex-col justify-center font-ptsans w-9/12 px-4">
             <div className="px-2 w-full text-black font-abel font-extrabold rounded-lg text-2xl">
-              {popUpDataProduct.nameProduct}
+              {popUpDataProduct.name_product}
             </div>
             <div className="px-2 font-ptsans text-xs pt-1">Terjual 1000+</div>
             <div className="px-2 font-abel font-bold border-b border-black pb-2 pt-2 text-5xl">

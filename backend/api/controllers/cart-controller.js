@@ -1,8 +1,8 @@
 import { pool } from "./db.js";
 
-export const getAllProduct = async (_req, res) => {
+export const getAllCart = async (_req, res) => {
   try {
-    const result = await pool.query("select * from products");
+    const result = await pool.query("select * from carts");
     res
       .status(200)
       .json({ msg: "Data berhasil ditampilkan", data: result.rows });
@@ -11,9 +11,9 @@ export const getAllProduct = async (_req, res) => {
   }
 };
 
-export const getProductById = async (req, res) => {
+export const getCartByUser = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM products WHERE id = $1", [
+    const result = await pool.query("SELECT * FROM carts WHERE user = $1", [
       req.params.id,
     ]);
     res.json(result.rows[0]);
@@ -22,12 +22,12 @@ export const getProductById = async (req, res) => {
   }
 };
 
-export const addNewProduct = async (req, res) => {
+export const addCart = async (req, res) => {
   try {
     const result = await pool.query(
-      "INSERT INTO products (name_product, category, price, image, stock) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      "INSERT INTO carts (data, size, order, user) VALUES ($1, $2, $3, $4) RETURNING *",
       [
-        req.body.name_product,
+        req.body.data,
         req.body.category,
         req.body.price,
         req.body.image,

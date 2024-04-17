@@ -1,11 +1,19 @@
+// eslint-disable-next-line react/prop-types
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { MdInfo } from "react-icons/md";
 import { IoMdHeart, IoMdTrash } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ListCart({ cart, setCart }) {
+export default function ListCart() {
   const [checked, setChecked] = useState(false);
   const [orderAmount, setOrderAmount] = useState(1);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/cart`)
+      .then((response) => response.json())
+      .then((cart) => setCart(cart));
+  }, []);
 
   return (
     <>
