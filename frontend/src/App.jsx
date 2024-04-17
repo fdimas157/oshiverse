@@ -5,17 +5,16 @@ import Footer from "./components/Footer";
 export const AuthContext = createContext();
 
 export default function App() {
-  // const [backgroundHeader, setBackgroundHeader] = useState(true);
-  const [cart, setCart] = useState([{ id: 1, nameProduct: "Dimas" }]);
+  const [isLoggedIn, setIsLoggedIn] = useState({});
 
   return (
-    <>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       {/* <Header
         backgroundHeader={backgroundHeader}
         setBackgroundHeader={setBackgroundHeader}
       /> */}
-      <Outlet cart={cart} setCart={setCart} />
+      <Outlet />
       <Footer />
-    </>
+    </AuthContext.Provider>
   );
 }

@@ -2,8 +2,7 @@ import { FaSpotify } from "react-icons/fa";
 import { SiYoutubemusic, SiApplemusic } from "react-icons/si";
 import Header from "../components/Header";
 
-export default function Home({ cart }) {
-  console.log(cart);
+export default function Home() {
   const singles = [
     {
       id: 1,
@@ -36,6 +35,7 @@ export default function Home({ cart }) {
       image: "/src/assets/cover/gadis-remaja.jpg",
     },
   ];
+
   return (
     <>
       <Header />
