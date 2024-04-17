@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderShop from "../components/HeaderShop";
 import ListCart from "../components/ListCart";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
-export default function MerchandiseCart({ cart, setCart }) {
+export default function MerchandiseCart() {
   const [checked, setChecked] = useState(false);
+  const [cart, setCart] = useState([]);
   console.log(cart);
   const tShirt = [
     {
@@ -71,9 +72,15 @@ export default function MerchandiseCart({ cart, setCart }) {
     },
   ];
 
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/cart`)
+      .then((response) => response.json())
+      .then((cart) => setCart(cart));
+  }, []);
+
   return (
     <>
-      <HeaderShop />
+      <HeaderShop totalCart={cart.length} />
       <main className="p-2">
         <div className="w-full h-12 flex flex-row items-center gap-2 p-4 pb-0">
           <Link
@@ -153,11 +160,15 @@ export default function MerchandiseCart({ cart, setCart }) {
                 berlaku!
               </div>
             </div>
-            <div className="w-full flex justify-center p-2">
+            <Link
+              className="w-full flex justify-center p-2"
+              to={"/jkt48"}
+              onClick={() => alert("Maaf fitur ini belum bisa digunakan.")}
+            >
               <button className="bg-black text-white p-2 w-64 hover:shadow-2xlxl">
                 PROSES SELANJUTNYA
               </button>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="text-2xl text-black font-outfit font-bold p-4 border-b-2 border-black flex flex-col">

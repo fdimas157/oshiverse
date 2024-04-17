@@ -101,7 +101,15 @@ export default function PopUpProduct({
               <button
                 className="bg-red-600 w-10/12 h-12 rounded-lg"
                 onClick={() => {
-                  setCart([...cart, { ...popUpDataProduct, size, order }]);
+                  setCart([
+                    ...cart,
+                    {
+                      ...popUpDataProduct,
+                      size,
+                      order,
+                      user: localStorage.getItem("currentUser"),
+                    },
+                  ]);
                   setTotalCart(cart.length + 1);
                   setPopUpProduct();
                   console.log(cart);

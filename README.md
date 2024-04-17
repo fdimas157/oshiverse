@@ -25,13 +25,19 @@
 ### Ayo bergabung dengan JKT48 Universe dan rasakan sendiri sensasi menjadi bagian dari keluarga besar JKT48!
 
 ## Fitur
+
 1. Login & Register, gerbang pertama untuk masuk ke dalam aplikasi, jika masih pengguna baru maka bisa mendaftar
-3. Merchandise, pengguna bisa membeli beberapa merchandise original JKT48
-4. Schedule, pengguna dapat mengecek jadwal dan event JKT48
-5. Member, pengguna bisa mengecek data member dan akun sosial medianya
-6. Profile, data diri pengguna
+2. Merchandise, pengguna bisa membeli beberapa merchandise original JKT48
+3. Schedule, pengguna dapat mengecek jadwal dan event JKT48
+4. Member, pengguna bisa mengecek data member dan akun sosial medianya
+5. Profile, data diri pengguna
+
+## Skema Database
+
+![database-schema](database-schema.png)
 
 ## Tech Stack
+
 - Frontend: PrimeReact & Semantic UI
 - Backend: Node.js
 - DB: PostgreSQL & Supabase

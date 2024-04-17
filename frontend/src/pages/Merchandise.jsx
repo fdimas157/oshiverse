@@ -26,7 +26,7 @@ export default function Merchandise() {
 
   return (
     <>
-      <HeaderShop totalCart={totalCart} cart={cart} />
+      <HeaderShop totalCart={cart.length} cart={cart} />
       <main className="flex flex-col p-2">
         <div className="w-full h-12 flex flex-row items-center gap-2 p-4">
           <Link

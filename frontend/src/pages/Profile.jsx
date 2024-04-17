@@ -6,11 +6,13 @@ export default function Profile() {
   const [openPopUp, setOpenPopUp] = useState();
   const [currentUser, setCurrentUser] = useState({});
   const [currentOshiName, setCurrentOshiName] = useState();
-  // useEffect(() => {
-  //   fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/get-users-by-logged/`)
-  //     .then((response) => response.json())
-  //     .then((currentUser) => setCurrentUser(currentUser));
-  // }, []);
+  const [idolMember, setIdolMember] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/get-all-idol-member`)
+      .then((response) => response.json())
+      .then((member) => setIdolMember(member));
+  }, []);
 
   useEffect(() => {
     fetch(
@@ -97,37 +99,46 @@ export default function Profile() {
               action="#"
               className="flex gap-4 w-full p-2 font-abel font-bold pb-8"
             >
-              <div className="flex items-center justify-center w-full flex-wrap gap-4">
+              <div className="flex items-center justify-center w-full flex-wrap gap-2 ">
                 <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
                   Nama Lengkap
                   <input
                     type="text"
-                    value={user.name}
+                    value={currentUser.name}
                     className="p-2 border-2 border-black w-full rounded-lg"
                   />
                 </label>
-                <label htmlFor="" className="flex gap-16 w-full px-1">
-                  <div className="flex flex-col gap-2">
-                    Jenis Kelamin
-                    <div className="flex flex-row gap-8 w-full px-1">
-                      <label htmlFor="">
-                        <input type="radio" /> Laki-Laki
-                      </label>
-                      <label htmlFor="">
-                        <input type="radio" /> Perempuan
-                      </label>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    Tanggal Lahir
-                    <input type="date" value={user.birth} />
-                  </div>
+                <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
+                  Tanggal Lahir
+                  <input
+                    type="date"
+                    value={currentUser.birth}
+                    className="p-2 border-2 border-black w-full rounded-lg"
+                  />
                 </label>
                 <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
-                  No. Identitas
+                  Jenis Kelamin
                   <input
                     type="text"
-                    value={user.noIdentity}
+                    value={currentUser.gender}
+                    className="p-2 border-2 border-black w-full rounded-lg"
+                  />
+                </label>
+                <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
+                  Alamat Lengkap
+                  <input
+                    type="text"
+                    value={currentUser.address}
+                    className="p-2 border-2 border-black w-full rounded-lg"
+                  />
+                </label>
+              </div>
+              <div className="flex items-center justify-center w-full flex-wrap gap-4 ">
+                <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
+                  Email
+                  <input
+                    type="text"
+                    value={currentUser.email}
                     className="p-2 border-2 border-black w-full rounded-lg"
                   />
                 </label>
@@ -135,25 +146,7 @@ export default function Profile() {
                   No. Handphone
                   <input
                     type="text"
-                    value={user.phone}
-                    className="p-2 border-2 border-black w-full rounded-lg"
-                  />
-                </label>
-              </div>
-              <div className="flex items-center justify-center w-full flex-wrap gap-4">
-                <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
-                  Email
-                  <input
-                    type="text"
-                    value={user.email}
-                    className="p-2 border-2 border-black w-full rounded-lg"
-                  />
-                </label>
-                <label htmlFor="" className="flex flex-col gap-2 w-full px-1">
-                  Password
-                  <input
-                    type="password"
-                    value={user.password}
+                    value={currentUser.phone}
                     className="p-2 border-2 border-black w-full rounded-lg"
                   />
                 </label>
@@ -164,13 +157,14 @@ export default function Profile() {
                     id=""
                     className="p-2 border-2 border-black w-full rounded-lg"
                   >
-                    <option value="">Reva Fidela</option>
-                    <option value="">Azizi Shafa Asadel</option>
-                    <option value="">Shani Indira Natio</option>
-                    <option value="">Freyana Jayawardhana</option>
+                    {idolMember.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name}
+                      </option>
+                    ))}
                   </select>
                 </label>
-                <div className="flex flex-row gap-2 w-full px-1">
+                <div className="flex flex-row gap-2 w-full px-1 ">
                   <button
                     className=" bg-red-600 h-12 rounded-lg text-white w-full"
                     onClick={() => setOpenPopUp(!openPopUp)}
@@ -273,6 +267,10 @@ export default function Profile() {
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">Tanggal Lahir</td>
                   <td>{currentUser.birth}</td>
+                </tr>
+                <tr className="border-b-2 border-gray-200">
+                  <td className="p-4">Alamat Lengkap</td>
+                  <td>{currentUser.address}</td>
                 </tr>
                 <tr className="border-b-2 border-gray-200">
                   <td className="p-4">

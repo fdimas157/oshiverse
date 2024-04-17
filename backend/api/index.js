@@ -139,6 +139,30 @@ app.get("/api/v1/get-cart/:id", async (req, res) => {
   res.json(result.rows[0]);
 });
 
+app.post("/api/v1/add-to-cart", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "INSERT INTO carts (data_product, size, total_order, user) VALUES ($1, $2, $3, $4) RETURNING *",
+      [
+        req.body.data_product,
+        req.body.size,
+        req.body.total_order,
+        req.body.user,
+      ]
+    );
+
+    res.status(200).json({
+      cart: result.rows[0],
+      message: "Produk berhasil ditambahkan ke keranjang.",
+    });
+  } catch (error) {
+    console.error(error); // Log the error for debugging
+    res.status(500).json({
+      message: "Kesalahan saat menambahkan produk ke keranjang.",
+    });
+  }
+});
+
 // IDOL MEMBERS
 app.get("/api/v1/get-all-idol-member", async (_req, res) => {
   const result = await pool.query("SELECT * FROM idol_members");
