@@ -1,11 +1,22 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { CircleUserRound } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopUpProfile from "./PopUpProfile";
 
 export default function Header({ backgroundHeader, setBackgroundHeader }) {
   const [profilePopUp, setprofilePopUp] = useState();
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/v1/get-user/${localStorage.getItem(
+        "currentUser"
+      )}`
+    )
+      .then((response) => response.json())
+      .then((currentUser) => setCurrentUser(currentUser));
+  }, []);
 
   return (
     <nav
@@ -82,7 +93,7 @@ export default function Header({ backgroundHeader, setBackgroundHeader }) {
         </Link>
       </div>
       <div className="flex gap-4 w-52 justify-center items-center ">
-        <div>Ohaiyou, Dimas !</div>
+        <div>Ohaiyou, {currentUser.name}</div>
         <div
           className={`cursor-pointer ${
             backgroundHeader ? "text-red-600" : "text-white"

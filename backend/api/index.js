@@ -96,7 +96,6 @@ app.post("/api/v1/add-user", async (req, res) => {
 });
 
 // PRODUCTS
-
 app.use("/api/v1/product", async (_req, res) => {
   const result = await pool.query("SELECT * FROM products");
   res.json(result.rows);
@@ -133,7 +132,7 @@ app.use("/api/v1/cart", async (_req, res) => {
 });
 
 app.get("/api/v1/get-cart/:id", async (req, res) => {
-  const result = await pool.query("SELECT * FROM carts WHERE user = $1", [
+  const result = await pool.query("SELECT * FROM carts WHERE data_user = $1", [
     req.params.id,
   ]);
   res.json(result.rows[0]);
@@ -142,12 +141,12 @@ app.get("/api/v1/get-cart/:id", async (req, res) => {
 app.post("/api/v1/add-to-cart", async (req, res) => {
   try {
     const result = await pool.query(
-      "INSERT INTO carts (data_product, size, total_order, user) VALUES ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO carts (data_product, size, total_order, data_user) VALUES ($1, $2, $3, $4) RETURNING *",
       [
         req.body.data_product,
         req.body.size,
         req.body.total_order,
-        req.body.user,
+        req.body.data_user,
       ]
     );
 

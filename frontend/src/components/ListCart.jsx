@@ -10,9 +10,16 @@ export default function ListCart() {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/cart`)
+    fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/v1/get-cart/${localStorage.getItem(
+        "currentUser"
+      )}`
+    )
       .then((response) => response.json())
-      .then((cart) => setCart(cart));
+      .then((c) => {
+        setCart(c);
+        console.log(cart);
+      });
   }, []);
 
   return (

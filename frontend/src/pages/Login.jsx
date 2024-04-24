@@ -102,7 +102,7 @@ export default function Login() {
                     className="w-11/12 text-center flex justify-center items-center flex-col gap-2"
                   >
                     <input
-                      type="text"
+                      type="password"
                       placeholder="Masukan password...."
                       onChange={(e) => setPassword(e.target.value)}
                       className="h-9 w-full px-4 rounded-lg border-none font-bold bg-gray-500/10 text-white "

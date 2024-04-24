@@ -73,7 +73,11 @@ export default function MerchandiseCart() {
   ];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/cart`)
+    fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/v1/get-cart/${localStorage.getItem(
+        "currentUser"
+      )}`
+    )
       .then((response) => response.json())
       .then((cart) => setCart(cart));
   }, []);

@@ -7,6 +7,7 @@ export default function Profile() {
   const [currentUser, setCurrentUser] = useState({});
   const [currentOshiName, setCurrentOshiName] = useState();
   const [idolMember, setIdolMember] = useState([]);
+  const [getOshi, setGetOshi] = useState({});
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/get-all-idol-member`)
@@ -31,53 +32,12 @@ export default function Profile() {
       }/v1/get-idol-member/${localStorage.getItem("currentOshi")}`
     )
       .then((response) => response.json())
-      .then((oshiName) => setCurrentOshiName(oshiName.name));
+      .then((oshiName) => {
+        setCurrentOshiName(oshiName.name);
+        setGetOshi(oshiName);
+        localStorage.setItem("oshi", oshiName);
+      });
   }, []);
-
-  const members = [
-    {
-      id: 1,
-      name: "Reva Fidela",
-      nickName: "Adel",
-      image: "/src/assets/member/oshi-adel.jpg",
-    },
-    {
-      id: 2,
-      name: "Azizi Asadel",
-      nickName: "Zee",
-      image: "/src/assets/member/oshi-zee.jpg",
-    },
-    {
-      id: 3,
-      name: "Shani Indira Natio",
-      nickName: "Shani",
-      image: "/src/assets/member/oshi-shani.jpg",
-    },
-    {
-      id: 4,
-      name: "Marsha Lenathea",
-      nickName: "Marsha",
-      image: "/src/assets/member/oshi-marsha.jpg",
-    },
-    {
-      id: 5,
-      name: "Freyana Jayawardhana",
-      nickName: "Freya",
-      image: "/src/assets/member/oshi-freya.jpg",
-    },
-  ];
-
-  const user = {
-    id: 1,
-    noIdentity: "3279022505030002",
-    name: "Dimas Firmansyah",
-    birth: "2003-05-25",
-    oshimen: members[0],
-    phone: "087735495185",
-    email: "dimas@gmail.com",
-    password: "12345678",
-    gender: "Laki-Laki",
-  };
 
   return (
     <>
@@ -188,7 +148,7 @@ export default function Profile() {
         <div className="w-5/12 p-4">
           <img
             className="w-full rounded-lg"
-            src={user.oshimen.image}
+            src={getOshi.img_main}
             alt="Oshi"
           />
         </div>
